@@ -38,24 +38,21 @@
   <body>
     <!-- Navbar Start -->
     {% block navbar %}
-    {% include 'layouts/navbar.html'%}
     {% endblock %}
     <!-- Navbar End -->
 
     <!-- Header Start -->
     {% block hero %}
-    {% include 'layouts/hero.html'%}
     {% endblock %}
     <!-- Header End -->
 
     <!-- Facilities Start -->
     {% block video_section %}
-    {% include 'layouts/video_section.html'%}
     {% endblock %}
     <!-- Facilities Start -->
 
     <!-- About Start -->
-    {% block best_School %}
+    {% block best_school %}
    
     {% endblock %}
     <!-- About End -->
@@ -85,7 +82,8 @@
     <!-- Blog End -->
 
     <!-- Footer Start -->
-   
+    {% block footer %}
+    {% endblock %}
     <!-- Footer End -->
 
     <!-- Back to Top -->
