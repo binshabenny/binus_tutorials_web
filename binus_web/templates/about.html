@@ -1,3 +1,30 @@
 {% extends 'layouts/blank_layout.html' %}
 {% load static %}
-{% block title%}kids{% endblock %}
+
+
+{% block navbar %}
+{% include 'layouts/navbar.html'%}
+{% endblock %}
+
+{% block hero_content %}
+<div class="container-fluid bg-primary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+        <h3 class="display-3 font-weight-bold text-white">{% block title %}About Us{% endblock %}</h3>
+        <div class="d-inline-flex text-white">
+            <p class="m-0"><a class="text-white" href="">{% block sub_title %}Home{% endblock %}</a></p>
+            <p class="m-0 px-2">/</p>
+            <p class="m-0">{% block head %}About Us{% endblock %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block best_school %}
+{% include 'layouts/best_school.html'%}  
+{% endblock %}
+
+
+{% block footer %}
+{% include 'layouts/footer.html'%}       
+{% endblock %}

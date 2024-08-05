@@ -7,3 +7,13 @@ def index(request):
 
 def about(request):
     return render(request,'about.html')
+
+def classes(request):
+    return render(request,'class.html')
+
+def video_lectures(request):
+    return render(request,'video.html')
+
+def contact(request):
+    return render(request,'contact.html')
+
