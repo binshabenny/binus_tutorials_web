@@ -1,15 +1,18 @@
 from django.shortcuts import render
+from .models import Tutorial
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    tutorials = Tutorial.objects.all()
+    return render(request, 'index.html', {'tutorials': tutorials})
 
 
 def about(request):
     return render(request,'about.html')
 
 def classes(request):
-    return render(request,'class.html')
+    tutorials = Tutorial.objects.all()
+    return render(request, 'class.html', {'tutorials': tutorials})
 
 def video_lectures(request):
     return render(request,'video.html')
