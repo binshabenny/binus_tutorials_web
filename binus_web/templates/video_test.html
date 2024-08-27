@@ -1,0 +1,46 @@
+{% extends 'layouts/blank_layout.html' %}
+{% load static %}
+
+{% block navbar %}
+{% include 'layouts/navbar.html'%}
+{% endblock %}
+
+{% block hero_content %}
+<div class="container-fluid bg-primary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+        <h3 class="display-3 font-weight-bold text-white">{% block title %}Video Lectures{% endblock %}</h3>
+        <div class="d-inline-flex text-white">
+            <p class="m-0"><a class="text-white" href="">{% block sub_title %}Home{% endblock %}</a></p>
+            <p class="m-0 px-2">/</p>
+            <p class="m-0">{% block head %}Video Classes{% endblock %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block general %}
+{% load embed_video_tags %}
+<h1 class="text-center">YouTube Classes</h1>
+
+<div class="container">
+    <div class="row">
+        {% for i in obj %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                {% video i.video 'small' %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.title }}</h5>
+                    <h6 class="card-title"style="color: #ff5733;">{{ i.chapter_title }}</h6> <!-- Optional: Display video title -->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <p>For more videos visit Our YouTube Channel <a href="https://www.youtube.com/@BinusMalayalamTutorials" target="_blank"><span>Binus Malayalam Tutorial</span></a></p>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'layouts/footer.html'%}       
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Tutorial
+from .models import Item
 
 # Create your views here.
 def index(request):
@@ -19,4 +20,9 @@ def video_lectures(request):
 
 def contact(request):
     return render(request,'contact.html')
+
+
+def video(request):
+    obj = Item.objects.all()
+    return render(request,'video_test.html',{'obj':obj})
 
