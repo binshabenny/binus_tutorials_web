@@ -29,36 +29,73 @@
             <div class="card-header bg-secondary text-center p-4">
               <h1 class="text-white m-0">Book A Seat</h1>
             </div>
-            <div class="card-body rounded-bottom bg-primary p-5">
-              <form>
+            <div id="form-section" class="card-body rounded-bottom bg-primary p-5">
+                <form method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+
                 <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control border-0 p-4"
-                    placeholder="Your Name"
-                    required="required"
-                  />
+                    <input
+                        type="text"
+                        class="form-control border-0 p-4"
+                        placeholder="Your Name"
+                        required="required"
+                        pattern="[A-Za-z\s]{3,}"
+                        title="Please enter a valid name with at least 3 characters"
+                        minlength="3"
+                        name="name"
+                        value="{{ form.name.value|default_if_none:'' }}"
+                    />
+                    {% if form.name.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.name.errors }}
+                        </div>
+                    {% endif %}
                 </div>
+            
                 <div class="form-group">
-                  <input
-                    type="email"
-                    class="form-control border-0 p-4"
-                    placeholder="Your Email"
-                    required="required"
-                  />
+                    <input
+                        type="email"
+                        class="form-control border-0 p-4"
+                        placeholder="Your Email"
+                        required="required"
+                        name="email"
+                        value="{{ form.email.value|default_if_none:'' }}"
+                    />
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
                 </div>
+            
                 <div class="form-group">
-                  <select
-                    class="custom-select border-0 px-4"
-                    style="height: 47px"
-                  >
-                    <option selected>Select A Class</option>
-                    <option value="1">Class 1</option>
-                    <option value="2">Class 1</option>
-                    <option value="3">Class 1</option>
-                  </select>
+                    <input
+                        type="tel"
+                        class="form-control border-0 p-4"
+                        placeholder="Phone Number"
+                        required="required"
+                        pattern="[0-9]{10}" 
+                        title="Please enter a valid 10-digit phone number"
+                        inputmode="numeric"
+                        name="phone_number"
+                        value="{{ form.phone_number.value|default_if_none:'' }}"
+                    />
+                    {% if form.phone_number.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.phone_number.errors }}
+                        </div>
+                    {% endif %}
                 </div>
-                <div>
+            
+                <div class="form-group">
+                    {{ form.subject }}
+                    {% if form.subject.errors %}
+                        <div class="alert alert-danger">
+                            {{ form.subject.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            
                   <button
                     class="btn btn-secondary btn-block border-0 py-3"
                     type="submit"
@@ -73,3 +110,15 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check if the form contains any errors
+        var formErrors = document.querySelectorAll('.alert-danger');
+
+        // If errors are present, scroll to the form
+        if (formErrors.length > 0) {
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>

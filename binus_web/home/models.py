@@ -22,3 +22,20 @@ class Tutorial(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Pictures(models.Model):
+        title = models.CharField(max_length=100)
+        image = models.ImageField(upload_to='images/')
+
+        def __str__(self):
+            return self.title
+        
+
+class BookSeat(models.Model):
+     name = models.CharField(max_length=100)
+     email = models.EmailField(max_length=100)
+     phone_number = models.CharField(max_length=15)
+     subject = models.CharField(max_length=255)
+
+     def __str__(self):
+        return f"{self.name} - {self.subject}"
