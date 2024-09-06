@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import BookSeat
+from .models import BookSeat,Contact
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core import validators
@@ -23,6 +23,19 @@ class BookingForm(ModelForm):
         fields = ['name', 'email', 'phone_number', 'subject']
 
     def clean_name(self):
+        name = self.cleaned_data.get('name')
+
+        if len(name) < 3:
+            raise forms.ValidationError("Name must be at least 3 characters long.")
+        return name
+    
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'phonenumber', 'subject', 'message']
+
+    def clean_name(self):
+        
         name = self.cleaned_data.get('name')
 
         if len(name) < 3:

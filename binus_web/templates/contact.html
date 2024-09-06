@@ -34,7 +34,8 @@
           <div class="col-lg-7 mb-5">
             <div class="contact-form">
               <div id="success"></div>
-              <form name="sentMessage" id="contactForm" novalidate="novalidate">
+              <form name="sentMessage"method="POST" id="contactForm" >
+                  {% csrf_token %}
                 <div class="control-group">
                   <input
                     type="text"
@@ -49,6 +50,9 @@
                     data-validation-required-message="Please enter your name"
                   />
                   <p class="help-block text-danger"></p>
+                  {% if form.name.errors %}
+                  <p class="help-block text-danger">{{ form.name.errors.0 }}</p>
+                {% endif %}
                 </div>
                 <div class="control-group">
                   <input
@@ -62,6 +66,9 @@
                   />
                   
                   <p class="help-block text-danger"></p>
+                  {% if form.email.errors %}
+                <p class="help-block text-danger">{{ form.email.errors.0 }}</p>
+                {% endif %}
                 </div>
                 <div class="control-group">
                   <input
@@ -77,6 +84,9 @@
                       data-validation-required-message="Please enter your phone number"
                   />
                   <p class="help-block text-danger"></p>
+                  {% if form.phonenumber.errors %}
+                  <p class="help-block text-danger">{{ form.phonenumber.errors.0 }}</p>
+                 {% endif %}
               </div>
                 <div class="control-group">
                   <input
@@ -111,6 +121,13 @@
                   >
                     Send Message
                   </button>
+                  {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
                 </div>
               </form>
             </div>

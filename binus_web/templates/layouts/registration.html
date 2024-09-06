@@ -43,7 +43,7 @@
                         title="Please enter a valid name with at least 3 characters"
                         minlength="3"
                         name="name"
-                        value="{{ form.name.value|default_if_none:'' }}"
+                        value="{{ form.name.value|default:'' }}"
                     />
                     {% if form.name.errors %}
                         <div class="alert alert-danger">
@@ -78,7 +78,7 @@
                         title="Please enter a valid 10-digit phone number"
                         inputmode="numeric"
                         name="phone_number"
-                        value="{{ form.phone_number.value|default_if_none:'' }}"
+                        value="{{form.name.value|default:'' }}"
                     />
                     {% if form.phone_number.errors %}
                         <div class="alert alert-danger">
