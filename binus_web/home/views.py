@@ -6,7 +6,8 @@ from .forms import BookingForm,ContactForm
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
-from .utils import send_sms
+from .utils import book_seat_and_send_sms
+
 
 
 
@@ -21,13 +22,7 @@ def index(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             
-            form.save()
-            user_name = form.cleaned_data['name']
-            user_phone_number = form.cleaned_data['phone_number']
-            message = f"New booking: {user_name} has booked a seat. Contact: {user_phone_number}"
-            
-            # Send SMS to your phone number
-            send_sms(settings.MY_PHONE_NUMBER, message)  # Saves the form data to the database
+            book_seat_and_send_sms(form)  # Saves the form data to the database
             return redirect('home')
         else:
             # If the form is not valid, stay on the page and show errors
@@ -51,7 +46,7 @@ def classes(request):
         form = BookingForm(request.POST)
         if form.is_valid():
       
-            form.save()  # Saves the form data to the database
+            book_seat_and_send_sms(form)  # Saves the form data to the database
             return redirect('class')
         else:
             print(form.errors)  # If the form is not valid, stay on the page and show errors
