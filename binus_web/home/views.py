@@ -79,3 +79,7 @@ def video(request):
     obj = Item.objects.all()
     return render(request,'video_test.html',{'obj':obj})
 
+
+def join_now(request):
+
+    return render(request,'join_now.html')

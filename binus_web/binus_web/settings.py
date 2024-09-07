@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'embed_video',
+    'payment',
 ]
 
 MIDDLEWARE = [
