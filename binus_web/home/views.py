@@ -81,5 +81,15 @@ def video(request):
 
 
 def join_now(request):
+    if request.method == "POST":
+        form = BookingForm(request.POST)
+        if form.is_valid():
+      
+            book_seat_and_send_sms(form)  # Saves the form data to the database
+            return redirect('class')
+        else:
+            print(form.errors)  # If the form is not valid, stay on the page and show errors
+    else:
+        form = BookingForm()
 
-    return render(request,'join_now.html')
+    return render(request,'join_now.html',{'form': form})
