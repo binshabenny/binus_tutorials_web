@@ -1,5 +1,6 @@
 from django.db import models
 from embed_video.fields import EmbedVideoField
+import uuid
 
 class Item(models.Model):
     title = models.CharField(max_length=100)
@@ -36,7 +37,11 @@ class BookSeat(models.Model):
      email = models.EmailField(max_length=100)
      phone_number = models.CharField(max_length=15)
      place = models.CharField(max_length=100) 
-     subject = models.CharField(max_length=255)
+     subject = models.ForeignKey(Tutorial, on_delete=models.CASCADE) 
+     order_id =models.CharField(max_length=100, blank=True)
+     status = models.BooleanField(default=False)
+     payment_id = models.CharField(max_length=100, null=True, blank=True)
+     created_at = models.DateTimeField(auto_now_add=True)
 
      def __str__(self):
         return f"{self.name} - {self.subject}"
