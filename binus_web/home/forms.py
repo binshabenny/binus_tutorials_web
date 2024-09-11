@@ -5,18 +5,21 @@ from .models import BookSeat,Contact,Tutorial
 
 
 
-class BookingForm(forms.ModelForm):
+class BookingForm(ModelForm):
+    # Using ModelChoiceField to dynamically load the options from Tutorial model
+    subject = forms.ModelChoiceField(
+        queryset=Tutorial.objects.all(),  # Fetch all tutorials from the database
+        widget=forms.Select(attrs={'class': 'custom-select border-0 px-4', 'style': 'height: 47px'}),
+        empty_label='Select A Class',  # Optional: A default placeholder option
+    )
+
     class Meta:
         model = BookSeat
-        fields = ['name', 'email', 'phone_number', 'place', 'subject']
-
-    def __init__(self, *args, **kwargs):
-        super(BookingForm, self).__init__(*args, **kwargs)
-        self.fields['subject'].queryset = Tutorial.objects.all()
-        self.fields['subject'].widget = forms.Select(attrs={'class': 'custom-select border-0 px-4', 'style': 'height: 47px'})
+        fields = ['name', 'email', 'phone_number', 'subject']
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
+
         if len(name) < 3:
             raise forms.ValidationError("Name must be at least 3 characters long.")
         return name
