@@ -1,6 +1,7 @@
 # utils.py
 
 from twilio.rest import Client
+
 from django.conf import settings
 from twilio.base.exceptions import TwilioRestException
 import logging
@@ -8,10 +9,8 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
-
 def send_sms(to_phone_number, message):
-    try:
+   
         client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
         msg = client.messages.create(
             body=message,
@@ -19,9 +18,8 @@ def send_sms(to_phone_number, message):
             to=to_phone_number
         )
         return msg.sid
-    except TwilioRestException as e:
-        logger.error(f"Twilio Error: {e}")
-        raise
+    
+
 
 def book_seat_and_send_sms(form):
     """
