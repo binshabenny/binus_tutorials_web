@@ -166,6 +166,6 @@ MY_PHONE_NUMBER = os.getenv('MY_PHONE_NUMBER')
 
 
 # Get Razorpay keys from the environment
-RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
-RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
+RAZORPAY_KEY_ID =os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET =os.getenv('RAZORPAY_KEY_SECRET')
 

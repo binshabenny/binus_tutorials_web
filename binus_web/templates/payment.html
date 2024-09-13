@@ -7,6 +7,19 @@
 {% endblock %}
 
 {% block content %}
+<script
+src="https://checkout.razorpay.com/v1/checkout.js"
+data-key="{{ RAZORPAY_KEY_ID }}" <!-- Razorpay Key ID -->
+data-amount ;"{{ fee }}" <!-- Amount in paisa (multiply by 100 in view) -->
+data-order_id ; "{{ order_id }}" <!-- Razorpay Order ID -->
+data-buttontext ; "Pay with Razorpay"
+data-name ; "Your Website Name"
+data-description ; "Tuition Fee Payment"
+data-prefill.name ; "{{ booking.name }}" <!-- Prefill user's name -->
+data-prefill.email ; "{{ booking.email }}" <!-- Prefill user's email -->
+data-theme.color ; "#F37254">
+</script>
+
 
 {% endblock %}
 

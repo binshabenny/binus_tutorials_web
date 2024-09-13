@@ -15,7 +15,7 @@ class BookingForm(ModelForm):
 
     class Meta:
         model = BookSeat
-        fields = ['name', 'email', 'phone_number', 'subject']
+        fields = ['name', 'email', 'phone_number','place', 'subject']
 
     def clean_name(self):
         name = self.cleaned_data.get('name')

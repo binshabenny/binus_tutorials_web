@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <div class="container-fluid py-5">
     <div class="container">
       <div class="row align-items-center">
@@ -29,7 +31,7 @@
               <h1 class="text-white m-0">Enroll Now</h1>
             </div>
             <div id="form-section" class="card-body rounded-bottom bg-primary p-5">
-                <form method="post" action="{% url 'home' %}">
+                <form method="post" action="{% url 'class' %}">
                 {% csrf_token %}
 
                 <div class="form-group">
@@ -114,6 +116,41 @@
                   >
                     Join Now
                   </button>
+                  {% if show_payment_button %}
+                  <button id="pay-now-btn">Pay Now</button>
+              {% endif %}
+          </form>
+          
+          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+          <script>
+              document.getElementById('pay-now-btn').onclick = function(e){
+                  e.preventDefault();
+          
+                  var options = {
+                      "key": "YOUR_RAZORPAY_KEY_ID",  // Enter the Key ID generated from Razorpay Dashboard
+                      "amount": "{{ fee }}", // Amount in paisa
+                      "currency": "INR",
+                      "name": "Binus Tutorials",
+                      "description": "Payment for class",
+                      "order_id": "{{ order_id }}", // Pass the order ID from Django
+                      "handler": function (response){
+                          alert("Payment successful!");
+                          // Add logic to update booking status or redirect user
+                      },
+                      "prefill": {
+                          "name": "{{ form.name.value }}",
+                          "email": "{{ form.email.value }}",
+                          "contact": "{{ form.phone_number.value }}"
+                      },
+                      "theme": {
+                          "color": "#3399cc"
+                      }
+                  };
+          
+                  var rzp1 = new Razorpay(options);
+                  rzp1.open();
+              };
+          </script>
                 </div>
               </form>
             </div>
@@ -133,4 +170,9 @@
             document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
         }
     });
+</script>
+<script>
+    window.onload = function() {
+        document.forms['form-section'].reset();  // Reset the form with ID 'booking-form'
+    };
 </script>

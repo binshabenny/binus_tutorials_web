@@ -23,7 +23,7 @@ urlpatterns = [
     path(r'jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
-    path('payment/',include('payment.urls')),
+    path('payment/<str:order_id>/<int:fee>/',include('payment.urls')),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
