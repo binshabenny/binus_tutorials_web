@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from home.models import BookSeat  # Assuming you have BookSeat model for bookings
+import razorpay
+from django.shortcuts import render,redirect
 
 def payment_page(request, order_id, fee):
     # Retrieve the booking based on the order_id
@@ -14,7 +16,4 @@ def payment_page(request, order_id, fee):
         'booking': booking,  # Pass the booking object to access name and email
     }
     return render(request, 'payment.html')
-
-
-
 

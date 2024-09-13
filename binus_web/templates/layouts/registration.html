@@ -31,7 +31,7 @@
               <h1 class="text-white m-0">Enroll Now</h1>
             </div>
             <div id="form-section" class="card-body rounded-bottom bg-primary p-5">
-                <form method="post" action="{% url 'class' %}">
+                <form method="post" action="{% url 'join_now' %}">
                 {% csrf_token %}
 
                 <div class="form-group">
@@ -116,41 +116,22 @@
                   >
                     Join Now
                   </button>
+                  <br>
+                  
+                    <input type="hidden" custom="Hidden Element" name="hidden"/>
+                    </form>
                   {% if show_payment_button %}
                   <button id="pay-now-btn">Pay Now</button>
               {% endif %}
           </form>
           
-          <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-          <script>
-              document.getElementById('pay-now-btn').onclick = function(e){
-                  e.preventDefault();
+          {% if show_payment_button %}
+              <!-- Pay with Razorpay Button -->
+              <button id="pay-now-btn" class="btn btn-success btn-block mt-3">Pay Now</button>
+              {% endif %}
+
+              
           
-                  var options = {
-                      "key": "YOUR_RAZORPAY_KEY_ID",  // Enter the Key ID generated from Razorpay Dashboard
-                      "amount": "{{ fee }}", // Amount in paisa
-                      "currency": "INR",
-                      "name": "Binus Tutorials",
-                      "description": "Payment for class",
-                      "order_id": "{{ order_id }}", // Pass the order ID from Django
-                      "handler": function (response){
-                          alert("Payment successful!");
-                          // Add logic to update booking status or redirect user
-                      },
-                      "prefill": {
-                          "name": "{{ form.name.value }}",
-                          "email": "{{ form.email.value }}",
-                          "contact": "{{ form.phone_number.value }}"
-                      },
-                      "theme": {
-                          "color": "#3399cc"
-                      }
-                  };
-          
-                  var rzp1 = new Razorpay(options);
-                  rzp1.open();
-              };
-          </script>
                 </div>
               </form>
             </div>
@@ -159,6 +140,36 @@
       </div>
     </div>
   </div>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+              <script>
+                  document.getElementById('pay-now-btn').onclick = function(e) {
+                      e.preventDefault();
+
+                      var options = {
+                          "key": "{{ razorpay_key_id }}",  // Razorpay Key ID
+                          "amount": "{{ amount }}",  // Amount in paisa
+                          "currency": "INR",
+                          "name": "Your Website Name",
+                          "description": "Payment for {{ subject }}",
+                          "order_id": "{{ razorpay_order_id }}",  // Razorpay Order ID
+                          "handler": function(response) {
+                              alert("Payment Successful. Payment ID: " + response.razorpay_payment_id);
+                              // Redirect to a success page or update status
+                          },
+                          "prefill": {
+                              "name": "{{ form.name.value }}",
+                              "email": "{{ form.email.value }}",
+                              "contact": "{{ form.phone_number.value }}"
+                          },
+                          "theme": {
+                              "color": "#F37254"
+                          }
+                      };
+
+                      var rzp1 = new Razorpay(options);
+                      rzp1.open();
+                  };
+              </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
