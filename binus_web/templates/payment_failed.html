@@ -1,0 +1,21 @@
+{% extends 'layouts/blank_layout.html' %}
+{% load static %}
+
+
+{% block navbar %}
+{% include 'layouts/navbar.html'%}
+{% endblock %}
+
+{% block content %}
+<br>
+<h1>Payment Failed</h1>
+    <p>{{ message }}</p>
+    
+
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'layouts/footer.html'%}       
+{% endblock %}
