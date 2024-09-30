@@ -1,2 +1,21 @@
+
+{% extends 'layouts/blank_layout.html' %}
+{% load static %}
+
+
+{% block navbar %}
+{% include 'layouts/navbar.html'%}
+{% endblock %}
+
+{% block content %}
+<br>
 <h1>Payment Successful!</h1>
 <p>Your booking is confirmed. Thank you for your payment.</p>
+
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'layouts/footer.html'%}       
+{% endblock %}

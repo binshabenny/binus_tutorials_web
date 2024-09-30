@@ -6,9 +6,11 @@ from .models import BookSeat
 from .forms import BookingForm,ContactForm
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, get_connection
 from .utils import book_seat_and_send_sms
 import razorpay
+import ssl
+
 
 
 razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
@@ -64,6 +66,25 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save() 
+
+            
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            email_subject = f"New Contact Form Submission: {subject}"
+            email_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+            from_email = email  # Use the user's email as the sender
+
+            send_mail(
+                email_subject,          # Subject
+                email_message,          # Message
+                from_email,             # From (user's email)
+                ['binuscomputer@gmail.com'],  # To (replace with your own email)
+                fail_silently=False,
+            )
+
             messages.success(request, 'Thank you for contacting us!') # Saves the form data to the database
             return redirect('contact')  # Redirect after successful form submission
         else:

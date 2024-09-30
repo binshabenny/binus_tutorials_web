@@ -50,9 +50,9 @@ def payment_success(request, order_id, fee):
 
 
 def payment_failed(request, order_id, fee):
+    
     payment_id = request.GET.get('payment_id', 'N/A')
-    order_id = request.GET.get('order_id')
-    fee = request.GET.get('fee')
+    
 
     logger.info(f'Payment failed for Order ID: {order_id}, Payment ID: {payment_id}')
     

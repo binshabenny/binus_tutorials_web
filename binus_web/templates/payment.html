@@ -46,13 +46,12 @@
             "modal": {
                 "ondismiss": function() {
                     // Redirect to failure page if user closes the modal without completing payment
-                    window.location.href = "{% url 'payment_failed' order_id=order_id fee=fee %}";
-                }
+                    window.location.href = "{% url 'payment_failed' order_id=order_id fee=fee %}"                }
             },
             "prefill": {
                 "name": "{{ form.name.value }}",
                 "email": "{{ form.email.value }}",
-                "contact": "{{ form.phone_number.value }}"
+                "contact": "0000000000"
             },
             "theme": {
                 "color": "#F37254"
@@ -69,14 +68,18 @@
         var rzp1 = new Razorpay(options);
         rzp1.on('payment.failed', function(response) {
             var errorMessage = 'Payment failed. Please try again.';
-            if (response.error.code === 'CARD_DECLINED') {
-                errorMessage = 'Your card was declined. Please check your card details or try a different card.';
-            } else if (response.error.code === 'CARD_EXPIRED') {
-                errorMessage = 'Your card has expired. Please use a different card or update your card details.';
-            } else if (response.error.code === 'INSUFFICIENT_FUNDS') {
-                errorMessage = 'Insufficient funds in your card. Please check your balance or try a different payment method.';
-            } else if (response.error.code === 'INVALID_CARD') {
-                errorMessage = 'Invalid card details. Please check the card number and try again.';
+            // Check if error description is available
+            if (response.error && response.error.description) {
+                // Customize messages based on known issues if you have specific codes
+                if (response.error.description.includes('declined')) {
+                    errorMessage = 'Your card was declined. Please check your card details or try a different card.';
+                } else if (response.error.description.includes('expired')) {
+                    errorMessage = 'Your card has expired. Please use a different card or update your card details.';
+                } else if (response.error.description.includes('insufficient funds')) {
+                    errorMessage = 'Insufficient funds in your card. Please check your balance or try a different payment method.';
+                } else if (response.error.description.includes('invalid card')) {
+                    errorMessage = 'Invalid card details. Please check the card number and try again.';
+                }
             }
             // Display the error message to the user
             alert(errorMessage);
