@@ -104,7 +104,7 @@ def join_now(request):
         
         if form.is_valid():
             booking = form.save()  # Saves the form data to the database
-            #book_seat_and_send_sms(form)
+            book_seat_and_send_sms(form)
 
             try:
                 # Fetch the related Tutorial based on the subject name
